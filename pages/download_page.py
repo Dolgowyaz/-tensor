@@ -5,5 +5,5 @@ class DownloadPage(BasePage):
     DOWNLOAD_BUTTON = (By.XPATH, "//a[contains(text(), 'Скачать (Exe 11.05 МБ)')]")
 
     def click_download_button(self):
-        self.logger.info("Clicking download button")
+        self.logger.info("Нажатие кнопки загрузки")
         self.wait.until(EC.element_to_be_clickable(self.DOWNLOAD_BUTTON)).click()
