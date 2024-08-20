@@ -1,4 +1,3 @@
-# test_scenario1.py
 import pytest
 from pages.sbis_page import SBISPage
 from pages.tensor_page import TensorPage

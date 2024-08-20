@@ -1,8 +1,6 @@
-# base_page.py
 import logging
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -25,6 +23,6 @@ class BasePage:
             self.logger.info(f"Checking if element is present with locator: {locator}")
             self.wait.until(EC.presence_of_element_located(locator))
             return True
-        except NoSuchElementException:
+        except:
             self.logger.warning(f"Element with locator {locator} is not present")
             return False

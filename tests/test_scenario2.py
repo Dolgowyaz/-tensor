@@ -1,4 +1,3 @@
-# test_scenario2.py
 import pytest
 from pages.sbis_page import SBISPage
 from pages.contacts_page import ContactsPage
