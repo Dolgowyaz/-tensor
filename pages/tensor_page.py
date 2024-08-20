@@ -27,20 +27,20 @@ class TensorPage(BasePage):
             photos = photos_block.find_elements(*self.PHOTOS)
 
             if not photos:
-                self.logger.error("No photos found in the block")
-                assert False, "No photos found in the block"
+                self.logger.error("Фотографии в блоке не найдены")
+                assert False, "Фотографии в блоке не найдены"
 
             dimensions = set()
             for photo in photos:
                 height = photo.size['height']
                 width = photo.size['width']
                 dimensions.add((height, width))
-                self.logger.info(f"Photo dimensions: {height}x{width}")
+                self.logger.info(f"Размеры фото: {height}x{width}")
 
             if len(dimensions) != 1:
-                self.logger.error(f"Not all photos have the same dimensions. Found dimensions: {dimensions}")
+                self.logger.error(f"Не все фотографии имеют одинаковые размеры. Найденные размеры: {dimensions}")
 
-            assert len(dimensions) == 1, "Not all photos have the same dimensions"
+            assert len(dimensions) == 1, "Не все фотографии имеют одинаковые размеры"
         except Exception as e:
-            self.logger.error(f"Error verifying photos dimensions: {e}")
+            self.logger.error(f"Ошибка при проверке размеров фотографий: {e}")
             raise

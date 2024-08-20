@@ -11,7 +11,7 @@ def sbis_page(browser):
 @pytest.fixture
 def tensor_page(browser):
     return TensorPage(browser)
-
+#@pytest.mark.skip(reason="Skip this test")
 def test_tensor_scenario(sbis_page, tensor_page):
     sbis_page.navigate_to_contacts()
     sbis_page.click_tensor_banner()
