@@ -9,6 +9,12 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope="module")
 def browser():
+    """
+    Фикстура для инициализации и завершения работы веб-драйвера.
+
+    Возвращает:
+    WebDriver: Экземпляр веб-драйвера.
+    """
     try:
         # Настройки для веб-драйвера
         options = webdriver.ChromeOptions()

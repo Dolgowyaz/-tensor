@@ -5,8 +5,15 @@ import os
 import time
 from pages.download_page import DownloadPage
 from pages.main_page import MainPage
+
 @pytest.fixture
 def browser():
+    """
+    Фикстура для инициализации и завершения работы веб-драйвера.
+
+    Возвращает:
+    WebDriver: Экземпляр веб-драйвера.
+    """
     chrome_options = webdriver.ChromeOptions()
     prefs = {
         'download.default_directory': os.path.join(os.getcwd(), "downloads"),
@@ -17,8 +24,15 @@ def browser():
     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
     yield driver
     driver.quit()
+
 #@pytest.mark.skip(reason="пропуск сценария")
 def test_download_plugin(browser):
+    """
+    Тестовый сценарий для проверки загрузки плагина.
+
+    Параметры:
+    browser (WebDriver): Экземпляр веб-драйвера.
+    """
     main_page = MainPage(browser)
     download_page = DownloadPage(browser)
 

@@ -4,12 +4,22 @@ from pages.base_page import BasePage
 import logging
 
 class TensorPage(BasePage):
+    """
+    Класс для работы со страницей Tensor.
+    """
+
     STRENGTH_IN_PEOPLE_BLOCK = (By.CSS_SELECTOR, 'div.tensor_ru-Index__block4-content.tensor_ru-Index__card')
     MORE_DETAILS_LINK = (By.CSS_SELECTOR, 'a.tensor_ru-link.tensor_ru-Index__link[href="/about"]')
     PHOTOS_BLOCK = (By.CSS_SELECTOR, 'div.tensor_ru-container.tensor_ru-section.tensor_ru-About__block3')
     PHOTOS = (By.CSS_SELECTOR, 'div.tensor_ru-container.tensor_ru-section.tensor_ru-About__block3 img')
 
     def __init__(self, browser):
+        """
+        Инициализация страницы Tensor.
+
+        Параметры:
+        browser (WebDriver): Экземпляр веб-драйвера.
+        """
         super().__init__(browser)
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -19,20 +29,32 @@ class TensorPage(BasePage):
         self.logger.addHandler(ch)
 
     def verify_strength_in_people_block(self):
+        """
+        Проверка наличия блока 'Сила в людях'.
+        """
         self.logger.info("Проверка наличия блока 'Сила в людях'")
         assert self.is_element_present(self.STRENGTH_IN_PEOPLE_BLOCK), "Блок 'Сила в людях' не найден"
 
     def click_more_details(self):
+        """
+        Клик по ссылке 'Подробнее'.
+        """
         self.logger.info("Клик по ссылке 'Подробнее'")
         more_details_link = self.wait.until(EC.visibility_of_element_located(self.MORE_DETAILS_LINK))
         self.browser.execute_script("arguments[0].scrollIntoView();", more_details_link)
         more_details_link.click()
 
     def verify_about_page(self):
+        """
+        Проверка URL страницы 'О компании'.
+        """
         self.logger.info("Проверка URL страницы 'О компании'")
         assert 'https://tensor.ru/about' in self.browser.current_url, "Страница 'О компании' не открыта"
 
     def verify_photos_dimensions(self):
+        """
+        Проверка размеров фотографий в блоке.
+        """
         self.logger.info("Проверка размеров фотографий в блоке")
         try:
             photos_block = self.wait.until(EC.presence_of_element_located(self.PHOTOS_BLOCK))

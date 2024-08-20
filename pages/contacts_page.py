@@ -1,14 +1,23 @@
 from selenium.webdriver.common.by import By
-
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 import logging
 
 class ContactsPage(BasePage):
+    """
+    Класс для работы со страницей контактов.
+    """
+
     REGION_CHOOSER = (By.CSS_SELECTOR, 'span.sbis_ru-Region-Chooser__text.sbis_ru-link')
     PARTNER_LIST = (By.ID, 'city-id-2')
 
     def __init__(self, browser):
+        """
+        Инициализация страницы контактов.
+
+        Параметры:
+        browser (WebDriver): Экземпляр веб-драйвера.
+        """
         super().__init__(browser)
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -18,16 +27,34 @@ class ContactsPage(BasePage):
         self.logger.addHandler(ch)
 
     def verify_region(self, region_name):
+        """
+        Проверка текущего региона.
+
+        Параметры:
+        region_name (str): Ожидаемое название региона.
+        """
         region_text = self.wait.until(EC.visibility_of_element_located(self.REGION_CHOOSER)).text
         self.logger.info(f"Текст региона: {region_text}")
         assert region_text == region_name, f"Ожидаемый регион: {region_name}, но найден: {region_text}"
 
     def verify_partner_list(self, city_name):
+        """
+        Проверка списка партнеров.
+
+        Параметры:
+        city_name (str): Ожидаемое название города.
+        """
         partner_list_text = self.wait.until(EC.visibility_of_element_located(self.PARTNER_LIST)).text
         self.logger.info(f"Текст списка партнеров: {partner_list_text}")
         assert city_name in partner_list_text, f"Ожидаемый город: {city_name}, но он не найден в списке партнеров: {partner_list_text}"
 
     def change_region(self, new_region):
+        """
+        Изменение региона.
+
+        Параметры:
+        new_region (str): Новое название региона.
+        """
         self.logger.info("Изменение региона")
         self.wait.until(EC.element_to_be_clickable(self.REGION_CHOOSER)).click()
         new_region_option = (By.XPATH, f'//span[text()="41 Камчатский край"]')
@@ -35,6 +62,12 @@ class ContactsPage(BasePage):
         self.wait.until(EC.text_to_be_present_in_element(self.REGION_CHOOSER, new_region))
 
     def verify_url_and_title(self, region_name):
+        """
+        Проверка URL и заголовка страницы.
+
+        Параметры:
+        region_name (str): Ожидаемое название региона.
+        """
         self.logger.info(f"Текущий URL: {self.browser.current_url}")
         self.logger.info(f"Текущий заголовок: {self.browser.title}")
         assert region_name in self.browser.current_url, f"Ожидаемый регион: {region_name}, но он не найден в URL: {self.browser.current_url}"
