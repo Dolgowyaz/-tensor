@@ -18,9 +18,10 @@ class ContactsPage(BasePage):
 
     def change_region(self, new_region):
         self.wait.until(EC.element_to_be_clickable(self.REGION_CHOOSER)).click()
-        new_region_option = (By.XPATH, f'//span[text()="{new_region}"]')
+        new_region_option = (By.XPATH, '//span[text()="41 Камчатский край"]')
         self.wait.until(EC.element_to_be_clickable(new_region_option)).click()
+        self.wait.until(EC.text_to_be_present_in_element(self.REGION_CHOOSER, new_region))
 
     def verify_url_and_title(self, region_name):
-        assert region_name in self.browser.current_url
-        assert region_name in self.browser.title
+        assert region_name in self.browser.current_url, f"Expected region: {region_name}, but it was not found in the URL: {self.browser.current_url}"
+        assert region_name in self.browser.title, f"Expected region: {region_name}, but it was not found in the title: {self.browser.title}"
