@@ -11,7 +11,7 @@ def sbis_page(browser):
 @pytest.fixture
 def contacts_page(browser):
     return ContactsPage(browser)
-#@pytest.mark.skip(reason="Skip this test")
+#@pytest.mark.skip(reason="пропуск сценария")
 def test_contacts_scenario_2(sbis_page, contacts_page):
     sbis_page.navigate_to_contacts()
     contacts_page.verify_region("Республика Башкортостан")
