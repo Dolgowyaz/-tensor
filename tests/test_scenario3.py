@@ -17,7 +17,7 @@ def browser():
     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
     yield driver
     driver.quit()
-@pytest.mark.skip(reason="пропуск сценария")
+#@pytest.mark.skip(reason="пропуск сценария")
 def test_download_plugin(browser):
     main_page = MainPage(browser)
     download_page = DownloadPage(browser)
